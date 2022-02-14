@@ -1,0 +1,249 @@
+<style>
+
+.search-input {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.search-input .form-control{
+margin:10px 0px;
+}
+
+.search-input .card-title{
+padding:10px 0px;
+margin:0px;
+}
+.align-center{
+text-align:center;
+}
+.no-padding{
+padding:0px;
+}
+.search-input span{
+padding:20px 10px;
+margin:0px;
+float: left;
+width:100%;
+text-align:center;
+}
+
+.search-input .btn{
+padding-left:8px;
+padding-right:8px;
+}
+.search-input span.fa-calendar{
+    padding: 12px 10px 8px 0px!important;
+    margin: 10px 0px;
+    background: rgba(222, 222, 222, 0.3);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.tbody{
+  cursor: pointer;
+}
+  </style>
+
+<div class="main-content">
+  <div class="row">
+      <div class="col-md-9">
+      
+        <div class="card">
+        <form #f1="ngForm" novalidate (ngSubmit)="memberSearchSubmit(f1.value)">
+              <div class="input-group no-border search-input">
+                  <div class="col-md-2"> 
+                  <h4 class="card-title" >MEMBER<br>SEARCH</h4>
+                  </div>
+                  
+                  <div class="col-md-3">
+                  <div class="row no-padding">
+                  <div class="col-md-8 no-padding">
+                  <input [ngModel]="memberSearch.lastname" autocomplete="off" #lastname="ngModel" name="lastname"  id="lastname"  type="text" value="" maxlength="50" placeholder="Last Name" class="form-control">
+                  </div>
+                  <div class="col-md-4 no-padding">
+                  <span>AND</span>
+                  </div>
+                  </div>
+                  
+                  </div>
+                  
+                  <div class="col-md-3">
+                  <div class="row no-padding">
+                  <div class="col-md-8 no-padding">
+                  
+                  <div class="form-group">
+					<div class="input-group">
+					  <input (click)="dob.toggle()" autocomplete="off"  class="form-control" placeholder="Date Of Birth" name="dobView" [ngModel]="memberSearch.dobView">
+					  <input style="display:none" (ngModelChange)="updatedobView()" [startDate]="memberSearch.startDate" (click)="dob.toggle()"  class="form-control datepicker" placeholder="Date Of Birth"
+							 name="dob" [ngModel]="memberSearch.dob" ngbDatepicker #dob="ngbDatepicker" id="dob">
+					  <div class="input-group-append">
+						<span class="fa fa-calendar" (click)="dob.toggle()"></span>
+					  </div>
+					</div>
+				  </div>
+  
+                  </div>
+                  <div class="col-md-4 no-padding">
+                  <span>OR</span>
+                  </div>
+                  </div>
+                  
+                  </div>
+                  
+                  <div class="col-md-2"> 
+                  <input [ngModel]="memberSearch.id"   #id="ngModel" name="id" type="number"  id="id" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+     maxlength="10" placeholder="Member ID" class="form-control">
+                  </div>
+                  
+                  
+                  <div class="col-md-2">
+                  <button type="submit" class=" btn btn-warning pull-left">Search</button>
+                  <!-- <button type="button" class=" btn btn-warning pull-right" (click)="resetMemberSearch(f1)">Reset</button> -->
+                  </div>
+                  
+              </div>
+              <p [hidden]="!message" class="text-danger align-center">{{message}}</p>
+       
+		</form>
+		 
+		
+		      <div [hidden]="!showMembersTable" class="card-body">
+                    <table id="memberTable"  class="table-hover table table-striped table-bordered" cellspacing="0" width="100%">
+						<thead>
+							<tr class="headerTable">
+							    <th>Name</th>
+                  <th>Type</th>
+                  <th>ID</th>
+                  <th>Group</th>
+                  <th>DOB</th>
+                  <th>City</th>
+							</tr>
+						</thead>
+
+					</table>
+              </div>
+          
+          
+          </div>
+          
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">PAYMENT HISTORY</h4>
+            </div> 
+              <div class="card-body">
+                    <table id="paymentTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                              <tr>
+                                <th>{{ paymentsTable.headerRow[0] }}</th>
+                                <th>{{ paymentsTable.headerRow[1] }}</th>
+                                <th>{{ paymentsTable.headerRow[2] }}</th>
+                                <th>{{ paymentsTable.headerRow[3] }}</th>
+                                <th>{{ paymentsTable.headerRow[4] }}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let row of paymentsTable.dataRows" class="tbodyTable">
+                                  <td (click)="redirectPage()">{{row[0]}}</td>
+                                  <td (click)="redirectPage()">{{row[1]}}</td>
+                                  <td (click)="redirectPage()">{{row[2]}}</td>
+                                  <td (click)="redirectPage()">{{row[3]}}</td>
+                                  <td (click)="redirectPage()">{{row[4]}}</td>
+                              </tr>
+                          </tbody>
+                      </table>
+              </div>
+              <!-- end content-->
+          </div>
+          <!--  end card  -->
+
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">LOCATIONS</h4>
+            </div>
+              <div class="card-body">
+                    <table id="locationTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                          <thead>
+                            <tr>
+                              <th>{{ locationsTable.headerRow[0] }}</th>
+                              <th>{{ locationsTable.headerRow[1] }}</th>
+                              <th>{{ locationsTable.headerRow[2] }}</th>
+                              <th>{{ locationsTable.headerRow[3] }}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let row of locationsTable.dataRows" class="tbodyTable">
+                                <td>{{row[0]}}</td>
+                                <td>{{row[1]}}</td>
+                                <td>{{row[2]}}</td>
+                                <td>{{row[3]}}</td>
+                            </tr>
+                        </tbody>
+                      </table>
+              </div>
+              <!-- end content-->
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">DOCTORS</h4>
+            </div>
+              <div class="card-body">
+                    <table id="doctorTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                          <thead>
+                              <tr>
+                                <th>{{ doctorsTable.headerRow[0] }}</th>
+                                <th>{{ doctorsTable.headerRow[1] }}</th>
+                                <th>{{ doctorsTable.headerRow[2] }}</th>
+                                <th>{{ doctorsTable.headerRow[3] }}</th>
+                                <th>{{ doctorsTable.headerRow[4] }}</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let row of doctorsTable.dataRows" class="tbodyTable">
+                                  <td>{{row[0]}}</td>
+                                  <td>{{row[1]}}</td>
+                                  <td>{{row[2]}}</td>
+                                  <td>{{row[3]}}</td>
+                                  <td>{{row[4]}}</td>
+                              </tr>
+                          </tbody>
+                      </table>
+              </div>
+              <!-- end content-->
+          </div>
+
+      </div>
+      <!-- end col-md-12 -->
+
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header" style="background-color: #3D5A80;">
+            <h4 class="card-title" style="color: white;">Announcements</h4>
+          </div>
+          <div class="card-body">
+            <p>Announcements Content 1</p>
+          </div>
+        </div>
+      
+        <div class="card">
+          <div class="card-header" style="background-color: #3D5A80;">
+            <h4 class="card-title" style="color: white;">Tutorials</h4>
+          </div>
+          <div class="card-body">
+            <p>Tutorials Content 1</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" style="background-color: #3D5A80;">
+            <h4 class="card-title" style="color: white;">Social Media</h4>
+          </div>
+          <div class="card-body">
+            <p>Social Media Content 1</p>
+          </div>
+        </div>
+      
+      
+      
+      </div>
+  </div>
+  <!-- end row -->
+</div>

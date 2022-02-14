@@ -1,0 +1,151 @@
+<div class="main-content">
+  <div class="col-md-10 mr-auto ml-auto">
+    <!--      Wizard container        -->
+    
+    <style>
+    .activeTab{
+    /*background:#3D5A80!important;*/
+    }
+    </style>
+    <div class="wizard-container">
+      <div class="card card-wizard" data-color="primary" id="wizardProfile">
+        <form action="" method="">
+          <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+          <div class="card-header text-center">
+            <h3 class="card-title">
+              Account Settings
+            </h3>
+            <h5 class="description"></h5>
+            <div class="wizard-navigation">
+              <ul>
+                <li class="nav-item" index="0" id="tab1" [ngClass]="{'activeTab': selectedTab === 'profile'}">
+                  <a class="nav-link" href="#profile" data-toggle="tab" role="tab" aria-controls="about" >
+                    <i class="nc-icon nc-single-02"></i> Profile
+                  </a>
+                </li>
+                <li class="nav-item" index="1"  id="tab2" [ngClass]="{'activeTab': selectedTab === 'changepassword'}">
+                  <a class="nav-link " href="#changepassword" data-toggle="tab" role="tab" aria-controls="account">
+                    <i class="nc-icon nc-lock-circle-open"></i> Change Password
+                  </a>
+                </li>
+                <li class="nav-item" index="2"  id="tab3" [ngClass]="{'activeTab': selectedTab === 'account'}">
+                  <a class="nav-link" href="#account" data-toggle="tab" role="tab" aria-controls="address" >
+                    <i class="nc-icon nc-touch-id"></i> Account & Notification
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane" id="profile" [ngClass]="{'active': selectedTab === 'profile'}">
+                <h5 class="info-text"></h5>
+                <div class="row justify-content-center">
+                  <div class="col-sm-4">
+                    <div class="picture-container">
+                      <div class="picture">
+                        <img src="./assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
+                        <input type="file" id="wizard-picture">
+                      </div>
+                      <h6 class="description">Choose Picture</h6>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="nc-icon nc-single-02"></i></span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Full Name (required)" value="{{fullname}}" name="firstname" (focus)="focus=true" (blur)="focus=false" />
+                    </div>
+                    <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="nc-icon nc-circle-10"></i></span>
+                      </div>
+                      <input type="text" placeholder="Username (required)" class="form-control" value="{{username}}" name="lastname" (focus)="focus1=true" (blur)="focus1=false" />
+                    </div>
+                  </div>
+                  <div class="col-lg-10 mt-3">
+                    <div class="input-group" [ngClass]="{'input-group-focus':focus2===true}">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="nc-icon nc-email-85"></i></span>
+                      </div>
+                      <input type="email" placeholder="Email (required)" class="form-control" value="{{email}}"  name="email" (focus)="focus2=true" (blur)="focus2=false" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane " id="changepassword" [ngClass]="{'active': selectedTab === 'changepassword'}">
+                <h4 class="info-text"> Password must be at least 8 characters long and have at least one upper case letter and a number.</h4>
+                <div class="row justify-content-center">
+                  <div class="col-sm-6">
+                    <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="nc-icon nc-lock-circle-open"></i></span>
+                      </div>
+                      <input type="password" class="form-control" placeholder="Current Password (required)" value="" name="currentPassword" (focus)="focus=true" (blur)="focus=false" />
+                    </div>
+                    <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="nc-icon nc-lock-circle-open"></i></span>
+                      </div>
+                      <input type="password" placeholder="New Password (required)" class="form-control" value="" name="newPassword1" (focus)="focus1=true" (blur)="focus1=false" />
+                    </div>
+                    <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="nc-icon nc-lock-circle-open"></i></span>
+                      </div>
+                      <input type="password" placeholder="New Password (required)" class="form-control" value="" name="newPassword2" (focus)="focus1=true" (blur)="focus1=false" />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="tab-pane" id="account" [ngClass]="{'active': selectedTab === 'account'}">
+                <div class="row justify-content-center">
+                  <div class="col-sm-6">
+                    <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="nc-icon nc-mobile"></i></span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Mobile Number (required)" value="998-866-4020" name="mobilenumber" (focus)="focus=true" (blur)="focus=false" />
+                    </div>
+                    <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="nc-icon nc-email-85"></i></span>
+                      </div>
+                      <input type="email" placeholder="Email Address (required)" class="form-control" value="{{email}}" name="emailaddress" (focus)="focus1=true" (blur)="focus1=false" />
+                    </div>
+                    <h4>Please Enable one of the following options to receive notifications and verification codes:</h4>
+                    <div class="col-md-4">
+                      <bSwitch
+                          [switch-on-color]="'primary'"
+                          [switch-off-color]="'primary'"
+                          [switch-off-text]="'&#x2715;'"
+                          [switch-on-text]="'&#x2714;'">
+                      </bSwitch> Email Notification <br>
+                      <bSwitch
+                          [switch-on-color]="'primary'"
+                          [switch-off-color]="'primary'"
+                          [switch-off-text]="'&#x2715;'"
+                          [switch-on-text]="'&#x2714;'"
+                          [(ngModel)]="state_with_icons">
+                      </bSwitch> Mobile Notification
+                  </div><br>
+                  <p>If notification options are unfamiliar, please call 877-488-8900.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="pull-right">
+              <input type='submit' class='btn btn-fill btn-rose btn-wd' name='' value='Submit' />
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- wizard container -->
+  </div>
+</div>
